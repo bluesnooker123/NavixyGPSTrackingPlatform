@@ -1,10 +1,16 @@
 F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\bin\Debug\Navixy.exe.config
 F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\bin\Debug\Navixy.exe
 F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\bin\Debug\Navixy.pdb
-F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\obj\Debug\Navixy.csprojResolveAssemblyReference.cache
 F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\obj\Debug\Navixy.Start.resources
 F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\obj\Debug\Navixy.Properties.Resources.resources
 F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\obj\Debug\Navixy.csproj.GenerateResource.Cache
 F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\obj\Debug\Navixy.csproj.CoreCompileInputs.cache
 F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\obj\Debug\Navixy.exe
 F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\obj\Debug\Navixy.pdb
+F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\bin\Debug\RestSharp.dll
+F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\bin\Debug\RestSharp.xml
+F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\bin\Debug\MetroFramework.Design.dll
+F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\bin\Debug\MetroFramework.dll
+F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\bin\Debug\MetroFramework.Fonts.dll
+F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\obj\Debug\Navixy.frmMain.resources
+F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\obj\Debug\Navixy.csprojResolveAssemblyReference.cache

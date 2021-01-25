@@ -117,4 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="login_password.Icon" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAABGdBTUEAALGPC/xhBQAAAIdQTFRFAAAA
+        ////3d3d3Nzc3t7e29vb+Pj47u7u5ubm2NjY4uLi5+fn8fHxBAQE6+vr+vr6i4uLoaGhu7u70tLSYWFh
+        tbW1lpaWDAwMhoaGrq6uFhYWMDAwxsbGTExMUVFRWlpaREREampqfn5+GRkZISEhMjIyaWlpPT09kZGR
+        KCgopaWldnZ2gICAO6blZQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAEhJREFUKFOdjcENACAIA2EA9l9X
+        0Bai4SP3sO0lBtGGlOKgUloYETsLsgv+RH7KuEwoMcFQVpb0zJLSC3N0iEBedu94XhqpugD4EAEFX2PX
+        2AAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="login_user.Icon" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAVCAMAAABxCz6aAAAABGdBTUEAALGPC/xhBQAAAI1QTFRFAAAA
+        /v7+////7e3t7Ozs9vb2+/v78fHx9/f38PDwt7e3tLS0u7u76Ojoqqqqw8PDzc3N39/fV1dXeHh4mJiY
+        3NzckpKSoaGhZGRk1tbWysrKbGxsSEhIgoKCv7+/GxsbXFxcOzs7KysrMjIyfHx8UVFRCwsLi4uLQEBA
+        cnJyGBgYIyMjnZ2dJycnNjY2pOtQXwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAERJREFUKFPNzsEKACAI
+        A1Dx/z86nXMYeOvSoFyPoMyXCC3CKkyTcpa1foHUPnBCWYG61CUW6kgi68g7rg/pL0gdsV9xP7rIAblB
+        Ywi/AAAAAElFTkSuQmCC
+</value>
+  </data>
+  <metadata name="metroStyleManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>
