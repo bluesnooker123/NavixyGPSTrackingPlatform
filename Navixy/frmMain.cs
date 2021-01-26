@@ -29,7 +29,7 @@ namespace Navixy
                 frm.ShowDialog();
                 Show_Data(frm.m_hash);
             }
-            this.Focus();
+            //this.Focus();
             //MessageBox.Show(this.ToString());
             //this.BringToFront();
             //this.Select();
@@ -45,6 +45,19 @@ namespace Navixy
                 client.Timeout = -1;
                 var request = new RestRequest(Method.GET);
                 IRestResponse response = client.Execute(request);
+
+                string[] temp = response.Content.Split(',');
+                if (temp[0] == "{\"success\":false")
+                {
+                    MessageBox.Show("Can not load data with your hash value", "Load data failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    System.Windows.Forms.Application.Exit();
+                }
+                else
+                {
+                    response_data_form val_response = JsonConvert.DeserializeObject<response_data_form>(response.Content);
+                    MessageBox.Show(val_response.list[1].source.model);
+                }
+
 
             }
             catch (Exception ex)
