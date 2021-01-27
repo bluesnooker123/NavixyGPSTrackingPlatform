@@ -25,7 +25,7 @@ namespace Navixy
 
             this.BringToFront();
             this.login_user.Select();
-            this.Select();
+            //this.Select();
 
             this.FormClosing += frmLogin_Closing;
         }

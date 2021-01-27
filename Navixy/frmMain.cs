@@ -15,10 +15,14 @@ namespace Navixy
 {
     public partial class frmMain : MetroFramework.Forms.MetroForm
     {
-        
+        public string m_hash;
+        response_data_form m_response;
+        public string filePath = @"db.csv";
         public frmMain()
         {
             InitializeComponent();
+
+            this.FormClosing += frmMain_Closing;
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -27,15 +31,24 @@ namespace Navixy
             {
                 this.Hide();
                 frm.ShowDialog();
-                Show_Data(frm.m_hash);
+                m_hash = frm.m_hash;
             }
-            //this.Focus();
+            //btn_start.BringToFront();
+            //btn_start.Select();
+            //this.WindowState = FormWindowState.Minimized;
+            //this.WindowState = FormWindowState.Normal;
+
+
+
+            //MessageBox.Show(this.OwnedForms[0].ToString());
+            //this.Activate();
+            //            this.Activate();
             //MessageBox.Show(this.ToString());
             //this.BringToFront();
             //this.Select();
 
         }
-        private void Show_Data(string val_hash)
+        private void Load_Data(string val_hash)
         {
             try
             {
@@ -54,8 +67,10 @@ namespace Navixy
                 }
                 else
                 {
-                    response_data_form val_response = JsonConvert.DeserializeObject<response_data_form>(response.Content);
-                    MessageBox.Show(val_response.list[1].source.model);
+                    m_response = JsonConvert.DeserializeObject<response_data_form>(response.Content);
+                    //MessageBox.Show(val_response.list[1].source.model);
+                    Save_Data();
+
                 }
 
 
@@ -64,6 +79,87 @@ namespace Navixy
             {
                 MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+        }
+        private void Save_Data()
+        {
+            string[] org_lines = { };
+            if (System.IO.File.Exists(filePath))
+                org_lines = System.IO.File.ReadAllLines(filePath);
+
+            StringBuilder temp_stringArray1 = new StringBuilder();
+            var lines_without_header = org_lines.AsEnumerable().Skip(1);
+            foreach (string line in lines_without_header.ToArray())
+                temp_stringArray1.AppendLine(line);
+
+            DateTime cur_datetime = DateTime.Now;
+            //foreach (string line in sorted.ToArray())
+            //{
+            //    string[] temp_arr = line.Split(',').ToArray();
+            //    string temp_month_1 = cur_datetime.Year.ToString() + " " + cur_datetime.ToString("MMM");
+            //    string temp_month_2 = DateTime.Parse(temp_arr[2]).Year.ToString() + " " + DateTime.Parse(temp_arr[2]).ToString("MMM");
+
+            //}
+            string single_line = "";
+            for (int i = 0; i < m_response.list.Count; i++)
+            {
+                single_line = m_response.list[i].source.device_id + "," + m_response.list[i].source.phone + "," + cur_datetime.ToString() + "," + m_response.list[i].source.blocked + "," + "false";
+                temp_stringArray1.AppendLine(single_line);
+            }
+
+            
+            string seperater = "\r\n";
+            string[] merged_str_array = temp_stringArray1.ToString().Split(seperater.ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToArray();
+            //MessageBox.Show(merged_str_array[0].Split(',')[0]);
+
+            var sorted = merged_str_array.AsEnumerable().Select(line => new
+            {
+                SortKey_IMEI = line.Split(',')[0],
+                SortKey_date = DateTime.Parse(line.Split(',')[2]),
+                Line = line
+            })
+            .OrderBy(x => x.SortKey_IMEI)
+            .ThenBy(x => x.SortKey_date)
+            .Select(x => x.Line);
+
+            StringBuilder result_str = new StringBuilder();
+            result_str = Remove_Duplicated_Month(sorted.ToArray());
+
+            System.IO.File.WriteAllText(filePath, result_str.ToString());
+            MessageBox.Show("Save to \"" + filePath + "\" successfully!", "success");
+        }
+        private StringBuilder Remove_Duplicated_Month(string[] lines)
+        {
+            StringBuilder result = new StringBuilder();
+            result.AppendLine("IMEI,Phone Number,Modified Date,Blocked,SIM Block");
+            for (int i = 0; i < lines.Length-1; i++)
+            {
+                if (!((lines[i].Split(',')[0] == lines[i + 1].Split(',')[0]) &&
+                    (DateTime.Parse(lines[i].Split(',')[2]).Month == DateTime.Parse(lines[i + 1].Split(',')[2]).Month)))
+                {
+                    result.AppendLine(lines[i]);
+                }
+            }
+            result.AppendLine(lines[lines.Length-1]);
+            return result;
+        }
+        private void btn_start_Click(object sender, EventArgs e)
+        {
+            Load_Data(m_hash);
+        }
+        private void frmMain_Closing(object sender, FormClosingEventArgs e)
+        {
+         //   MessageBox.Show(e.CloseReason.ToString());
+            if (e.CloseReason == CloseReason.FormOwnerClosing)  //for Shadow Form
+            {
+                e.Cancel = true;
+            }
+            //if (this.m_hash == null)
+            //    System.Windows.Forms.Application.Exit();
+        }
+
+        private void objectListView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }
