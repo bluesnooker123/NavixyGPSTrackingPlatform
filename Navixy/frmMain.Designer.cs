@@ -98,18 +98,23 @@
             this.header_Blocked,
             this.header_SIM_Block});
             this.objectListView1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.objectListView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.objectListView1.GridLines = true;
+            this.objectListView1.HasCollapsibleGroups = false;
             this.objectListView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.objectListView1.Location = new System.Drawing.Point(16, 106);
+            this.objectListView1.Location = new System.Drawing.Point(20, 106);
+            this.objectListView1.MenuLabelGroupBy = "Group by \'\'";
             this.objectListView1.Name = "objectListView1";
-            this.objectListView1.Size = new System.Drawing.Size(1015, 280);
+            this.objectListView1.ShowGroups = false;
+            this.objectListView1.Size = new System.Drawing.Size(1060, 680);
+            this.objectListView1.SortGroupItemsByPrimaryColumn = false;
             this.objectListView1.TabIndex = 1;
             this.objectListView1.UseCompatibleStateImageBehavior = false;
             this.objectListView1.View = System.Windows.Forms.View.Details;
-            this.objectListView1.SelectedIndexChanged += new System.EventHandler(this.objectListView1_SelectedIndexChanged);
             // 
             // header_IMEI
             // 
+            this.header_IMEI.AspectName = "aspect_IMEI";
             this.header_IMEI.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.header_IMEI.HeaderForeColor = System.Drawing.Color.Navy;
             this.header_IMEI.Text = "IMEI";
@@ -118,6 +123,7 @@
             // 
             // header_Phone
             // 
+            this.header_Phone.AspectName = "aspect_Phone";
             this.header_Phone.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.header_Phone.HeaderForeColor = System.Drawing.Color.Navy;
             this.header_Phone.Text = "Phone";
@@ -126,6 +132,7 @@
             // 
             // header_Jan
             // 
+            this.header_Jan.AspectName = "aspect_Jan";
             this.header_Jan.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.header_Jan.HeaderForeColor = System.Drawing.Color.Navy;
             this.header_Jan.Text = "J";
@@ -134,6 +141,7 @@
             // 
             // header_Feb
             // 
+            this.header_Feb.AspectName = "aspect_Feb";
             this.header_Feb.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.header_Feb.HeaderForeColor = System.Drawing.Color.Navy;
             this.header_Feb.Text = "F";
@@ -142,6 +150,7 @@
             // 
             // header_Mar
             // 
+            this.header_Mar.AspectName = "aspect_Mar";
             this.header_Mar.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.header_Mar.HeaderForeColor = System.Drawing.Color.Navy;
             this.header_Mar.Text = "M";
@@ -150,6 +159,7 @@
             // 
             // header_Apr
             // 
+            this.header_Apr.AspectName = "aspect_Apr";
             this.header_Apr.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.header_Apr.HeaderForeColor = System.Drawing.Color.Navy;
             this.header_Apr.Text = "A";
@@ -158,6 +168,7 @@
             // 
             // header_May
             // 
+            this.header_May.AspectName = "aspect_May";
             this.header_May.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.header_May.HeaderForeColor = System.Drawing.Color.Navy;
             this.header_May.Text = "M";
@@ -166,6 +177,7 @@
             // 
             // header_Jun
             // 
+            this.header_Jun.AspectName = "aspect_Jun";
             this.header_Jun.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.header_Jun.HeaderForeColor = System.Drawing.Color.Navy;
             this.header_Jun.Text = "J";
@@ -174,6 +186,7 @@
             // 
             // header_Jul
             // 
+            this.header_Jul.AspectName = "aspect_Jul";
             this.header_Jul.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.header_Jul.HeaderForeColor = System.Drawing.Color.Navy;
             this.header_Jul.Text = "J";
@@ -182,6 +195,7 @@
             // 
             // header_Aug
             // 
+            this.header_Aug.AspectName = "aspect_Aug";
             this.header_Aug.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.header_Aug.HeaderForeColor = System.Drawing.Color.Navy;
             this.header_Aug.Text = "A";
@@ -190,6 +204,7 @@
             // 
             // header_Sep
             // 
+            this.header_Sep.AspectName = "aspect_Sep";
             this.header_Sep.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.header_Sep.HeaderForeColor = System.Drawing.Color.Navy;
             this.header_Sep.Text = "S";
@@ -198,6 +213,7 @@
             // 
             // header_Oct
             // 
+            this.header_Oct.AspectName = "aspect_Oct";
             this.header_Oct.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.header_Oct.HeaderForeColor = System.Drawing.Color.Navy;
             this.header_Oct.Text = "O";
@@ -206,6 +222,7 @@
             // 
             // header_Nov
             // 
+            this.header_Nov.AspectName = "aspect_Nov";
             this.header_Nov.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.header_Nov.HeaderForeColor = System.Drawing.Color.Navy;
             this.header_Nov.Text = "N";
@@ -214,6 +231,7 @@
             // 
             // header_Dec
             // 
+            this.header_Dec.AspectName = "aspect_Dec";
             this.header_Dec.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.header_Dec.HeaderForeColor = System.Drawing.Color.Navy;
             this.header_Dec.Text = "D";
@@ -222,6 +240,7 @@
             // 
             // header_Blocked
             // 
+            this.header_Blocked.AspectName = "aspect_Blocked";
             this.header_Blocked.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.header_Blocked.HeaderForeColor = System.Drawing.Color.Navy;
             this.header_Blocked.Text = "BLOCKED";
@@ -230,18 +249,21 @@
             // 
             // header_SIM_Block
             // 
+            this.header_SIM_Block.AspectName = "aspect_SIM_Block";
+            this.header_SIM_Block.CheckBoxes = true;
+            this.header_SIM_Block.HeaderCheckBox = true;
             this.header_SIM_Block.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.header_SIM_Block.HeaderForeColor = System.Drawing.Color.Navy;
             this.header_SIM_Block.Text = "SIM BLOCK";
             this.header_SIM_Block.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.header_SIM_Block.Width = 120;
+            this.header_SIM_Block.Width = 140;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
-            this.ClientSize = new System.Drawing.Size(1048, 400);
+            this.ClientSize = new System.Drawing.Size(1100, 800);
             this.Controls.Add(this.objectListView1);
             this.Controls.Add(this.btn_start);
             this.MaximizeBox = false;

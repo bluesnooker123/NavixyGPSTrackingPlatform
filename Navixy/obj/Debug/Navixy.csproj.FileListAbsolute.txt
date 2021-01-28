@@ -17,3 +17,4 @@ F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\bin\Debug\Newtonsoft.J
 F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\obj\Debug\Navixy.frmLogin.resources
 F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\bin\Debug\ObjectListView.dll
 F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\bin\Debug\ObjectListView.xml
+F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\obj\Debug\Navixy.csprojResolveAssemblyReference.cache

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 using RestSharp;
 using Newtonsoft.Json;
+using BrightIdeasSoftware;
 
 namespace Navixy
 {
@@ -18,6 +19,7 @@ namespace Navixy
         public string m_hash;
         response_data_form m_response;
         public string filePath = @"db.csv";
+        public StringBuilder m_data;
         public frmMain()
         {
             InitializeComponent();
@@ -70,6 +72,7 @@ namespace Navixy
                     m_response = JsonConvert.DeserializeObject<response_data_form>(response.Content);
                     //MessageBox.Show(val_response.list[1].source.model);
                     Save_Data();
+                    Show_Data();
 
                 }
 
@@ -127,6 +130,8 @@ namespace Navixy
 
             System.IO.File.WriteAllText(filePath, result_str.ToString());
             MessageBox.Show("Save to \"" + filePath + "\" successfully!", "success");
+
+            m_data = result_str;
         }
         private StringBuilder Remove_Duplicated_Month(string[] lines)
         {
@@ -143,6 +148,22 @@ namespace Navixy
             result.AppendLine(lines[lines.Length-1]);
             return result;
         }
+        private void Show_Data()
+        {
+            string seperater = "\r\n";
+            string[] str_array = m_data.ToString().Split(seperater.ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToArray();
+
+            MessageBox.Show(str_array.Length.ToString());
+            int i = 0;
+            foreach (string line in str_array.AsEnumerable().Skip(1).ToArray())
+            {
+                objectListView1.AddObject(new { aspect_IMEI = line.Split(',')[0], aspect_Phone = line.Split(',')[1], aspect_Feb = "", aspect_Mar = "", aspect_Apr = "", aspect_May = "", aspect_Jun = "", aspect_J = "", aspect_Jul = "", aspect_Aug = "", aspect_Sep = "", aspect_Oct = "", aspect_Nov = "", aspect_Dec = "", aspect_Blocked = line.Split(',')[3], aspect_SIM_Block = line.Split(',')[4] });
+
+                //i++;
+                //if (i > 5)
+                //    break;
+            }
+        }
         private void btn_start_Click(object sender, EventArgs e)
         {
             Load_Data(m_hash);
@@ -158,9 +179,5 @@ namespace Navixy
             //    System.Windows.Forms.Application.Exit();
         }
 
-        private void objectListView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
