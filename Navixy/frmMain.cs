@@ -13,8 +13,6 @@ using Newtonsoft.Json;
 using XPTable;
 using XPTable.Models;
 
-
-
 namespace Navixy
 {
     public partial class frmMain : MetroFramework.Forms.MetroForm
@@ -24,10 +22,10 @@ namespace Navixy
         public string filePath = @"db.csv";
         public StringBuilder m_data;
 
-        private PropertyGrid rowStylePropertyGrid;
-        private PropertyGrid cellStylePropertyGrid;
-        private XPTable.Models.RowStyle rowStyle;
-        private CellStyle cellStyle;
+        //private PropertyGrid rowStylePropertyGrid;
+        //private PropertyGrid cellStylePropertyGrid;
+        //private XPTable.Models.RowStyle rowStyle;
+        //private CellStyle cellStyle;
 
         public frmMain()
         {
@@ -138,6 +136,12 @@ namespace Navixy
             column14.ShowColorName = false;
             column14.ShowDropDownButton = false;
             column14.Sortable = false;
+
+            column15.Sortable = false;
+            //column16.Alignment = ce;
+            
+
+
 
 
             this.columnModel.Columns.AddRange(new Column[] { column0, column1, column2, column3, column4, column5, column6, column7, column8, column9, column10, column11, column12, column13, column14 ,column15, column16});
@@ -256,7 +260,28 @@ namespace Navixy
             int i = 1;
             foreach (string line in str_array.AsEnumerable().Skip(1).ToArray())
             {
-                Row temp = new Row(new Cell[] { new Cell(i), new Cell(line.Split(',')[0]), new Cell(line.Split(',')[1]) , new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green) });
+                row_data te = new row_data();
+                te.v_IMEI = line.Split(',')[0];
+                te.v_PHONE = line.Split(',')[1];
+                te.v_Jan = Color.Red;
+                te.v_Feb = Color.Green;
+                te.v_Mar = Color.Red;
+                te.v_Apr = Color.Red;
+                te.v_May = Color.Red;
+                te.v_Jun = Color.Red;
+                te.v_Jul = Color.Red;
+                te.v_Aug = Color.Red;
+                te.v_Sep = Color.Green;
+                te.v_Oct = Color.Red;
+                te.v_Nov = Color.Red;
+                te.v_Dec = Color.Red;
+                te.v_BLOCKED = "Mar 2021";
+                te.v_SIM_BLOCK = true;
+                //Row temp = new Row(new Cell[] { new Cell(i), new Cell(line.Split(',')[0]), new Cell(line.Split(',')[1]) , new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green) });
+
+                CellStyle checkbox_cellstyle = new CellStyle();
+                checkbox_cellstyle.Padding = new CellPadding(60, 0, 0, 0);
+                Row temp = new Row(new Cell[] { new Cell(i), new Cell(te.v_IMEI), new Cell(te.v_PHONE), new Cell(te.v_Jan), new Cell(te.v_Feb), new Cell(te.v_Mar), new Cell(te.v_Apr), new Cell(te.v_May), new Cell(te.v_Jun), new Cell(te.v_Jul), new Cell(te.v_Aug), new Cell(te.v_Sep), new Cell(te.v_Oct), new Cell(te.v_Nov), new Cell(te.v_Dec) ,new Cell(te.v_BLOCKED), new Cell(te.v_SIM_BLOCK, checkbox_cellstyle)});
                 this.table.TableModel.Rows.Add(temp);
                 //table_data.Add(temp);
                 //objectListView1.AddObject(new { aspect_IMEI = line.Split(',')[0], aspect_Phone = line.Split(',')[1], aspect_Feb = "", aspect_Mar = "", aspect_Apr = "", aspect_May = "", aspect_Jun = "", aspect_J = "", aspect_Jul = "", aspect_Aug = "", aspect_Sep = "", aspect_Oct = "", aspect_Nov = "", aspect_Dec = "", aspect_Blocked = line.Split(',')[3], aspect_SIM_Block = line.Split(',')[4] });
