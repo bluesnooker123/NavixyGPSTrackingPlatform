@@ -207,7 +207,7 @@ namespace Navixy
             string single_line = "";
             for (int i = 0; i < m_response.list.Count; i++)
             {
-                single_line = m_response.list[i].source.device_id + "," + m_response.list[i].source.phone + "," + cur_datetime.ToString() + "," + m_response.list[i].source.blocked + "," + "false";
+                single_line = m_response.list[i].source.device_id + "," + m_response.list[i].source.phone + "," + cur_datetime.ToString() + "," + m_response.list[i].source.blocked;
                 temp_stringArray1.AppendLine(single_line);
             }
 
@@ -236,7 +236,7 @@ namespace Navixy
         private StringBuilder Remove_Duplicated_Month(string[] lines)
         {
             StringBuilder result = new StringBuilder();
-            result.AppendLine("IMEI,Phone Number,Modified Date,Blocked,SIM Block");
+            result.AppendLine("IMEI,Phone Number,Modified Date,Blocked");
             for (int i = 0; i < lines.Length-1; i++)
             {
                 if (!((lines[i].Split(',')[0] == lines[i + 1].Split(',')[0]) &&
@@ -253,43 +253,121 @@ namespace Navixy
             string seperater = "\r\n";
             string[] str_array = m_data.ToString().Split(seperater.ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToArray();
 
-            MessageBox.Show(str_array.Length.ToString());
+            //MessageBox.Show(str_array.Length.ToString());
 
-            //List<Row> table_data;
-
-            int i = 1;
+            int data_list_index = -1;
+            var data_list = new List<row_data>();
+            var unique_list = new List<string>();
             foreach (string line in str_array.AsEnumerable().Skip(1).ToArray())
             {
-                row_data te = new row_data();
-                te.v_IMEI = line.Split(',')[0];
-                te.v_PHONE = line.Split(',')[1];
-                te.v_Jan = Color.Red;
-                te.v_Feb = Color.Green;
-                te.v_Mar = Color.Red;
-                te.v_Apr = Color.Red;
-                te.v_May = Color.Red;
-                te.v_Jun = Color.Red;
-                te.v_Jul = Color.Red;
-                te.v_Aug = Color.Red;
-                te.v_Sep = Color.Green;
-                te.v_Oct = Color.Red;
-                te.v_Nov = Color.Red;
-                te.v_Dec = Color.Red;
-                te.v_BLOCKED = "Mar 2021";
-                te.v_SIM_BLOCK = true;
-                //Row temp = new Row(new Cell[] { new Cell(i), new Cell(line.Split(',')[0]), new Cell(line.Split(',')[1]) , new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green) });
+                string str_IMEI = line.Split(',')[0];
+                if(!unique_list.Contains(str_IMEI))
+                {
+                    row_data te = new row_data();
+                    te.v_IMEI = line.Split(',')[0];
+                    te.v_PHONE = line.Split(',')[1];
 
-                CellStyle checkbox_cellstyle = new CellStyle();
-                checkbox_cellstyle.Padding = new CellPadding(60, 0, 0, 0);
-                Row temp = new Row(new Cell[] { new Cell(i), new Cell(te.v_IMEI), new Cell(te.v_PHONE), new Cell(te.v_Jan), new Cell(te.v_Feb), new Cell(te.v_Mar), new Cell(te.v_Apr), new Cell(te.v_May), new Cell(te.v_Jun), new Cell(te.v_Jul), new Cell(te.v_Aug), new Cell(te.v_Sep), new Cell(te.v_Oct), new Cell(te.v_Nov), new Cell(te.v_Dec) ,new Cell(te.v_BLOCKED), new Cell(te.v_SIM_BLOCK, checkbox_cellstyle)});
-                this.table.TableModel.Rows.Add(temp);
-                //table_data.Add(temp);
-                //objectListView1.AddObject(new { aspect_IMEI = line.Split(',')[0], aspect_Phone = line.Split(',')[1], aspect_Feb = "", aspect_Mar = "", aspect_Apr = "", aspect_May = "", aspect_Jun = "", aspect_J = "", aspect_Jul = "", aspect_Aug = "", aspect_Sep = "", aspect_Oct = "", aspect_Nov = "", aspect_Dec = "", aspect_Blocked = line.Split(',')[3], aspect_SIM_Block = line.Split(',')[4] });
+                    te = Set_Blocked_Color(te, DateTime.Parse(line.Split(',')[2]).Month, line.Split(',')[3]);
+                    if (line.Split(',')[3] == "TRUE")
+                        te.v_BLOCKED = DateTime.Parse(line.Split(',')[2]).ToString("MMM yyyy");
+                    te.v_SIM_BLOCK = false;
 
-                i++;
-                //if (i > 5)
-                //    break;
+                    data_list_index++;
+                    data_list.Add(te);
+                    unique_list.Add(str_IMEI);
+                    
+                }
+                else
+                {
+                    data_list[data_list_index] = Set_Blocked_Color(data_list[data_list_index], DateTime.Parse(line.Split(',')[2]).Month, line.Split(',')[3]);
+                    if ((line.Split(',')[3] == "True") || (line.Split(',')[3] == "TRUE"))
+                        data_list[data_list_index].v_BLOCKED = DateTime.Parse(line.Split(',')[2]).ToString("MMM yyyy");
+                }
             }
+
+            CellStyle checkbox_cellstyle = new CellStyle();
+            checkbox_cellstyle.Padding = new CellPadding(60, 0, 0, 0);
+            int i = 1;
+            foreach (row_data row in data_list)
+            {
+                Row temp = new Row(new Cell[] { new Cell(i++), new Cell(row.v_IMEI), new Cell(row.v_PHONE), new Cell(row.v_Jan), new Cell(row.v_Feb), new Cell(row.v_Mar), new Cell(row.v_Apr), new Cell(row.v_May), new Cell(row.v_Jun), new Cell(row.v_Jul), new Cell(row.v_Aug), new Cell(row.v_Sep), new Cell(row.v_Oct), new Cell(row.v_Nov), new Cell(row.v_Dec), new Cell(row.v_BLOCKED), new Cell(row.v_SIM_BLOCK, checkbox_cellstyle) });
+                this.table.TableModel.Rows.Add(temp);
+            }
+
+
+
+        }
+        private row_data Set_Blocked_Color(row_data org, int month, string blocked_status)
+        {
+            row_data te = org;
+
+            switch (month)
+            {
+                case 1:
+                    {
+                        te.v_Jan = ((blocked_status == "True") || (blocked_status == "TRUE")) ? Color.Red : Color.Green;
+                        break;
+                    }
+                case 2:
+                    {
+                        te.v_Feb = ((blocked_status == "True") || (blocked_status == "TRUE")) ? Color.Red : Color.Green;
+                        break;
+                    }
+                case 3:
+                    {
+                        te.v_Mar = ((blocked_status == "True") || (blocked_status == "TRUE")) ? Color.Red : Color.Green;
+                        break;
+                    }
+                case 4:
+                    {
+                        te.v_Apr = ((blocked_status == "True") || (blocked_status == "TRUE")) ? Color.Red : Color.Green;
+                        break;
+                    }
+                case 5:
+                    {
+                        te.v_May = ((blocked_status == "True") || (blocked_status == "TRUE")) ? Color.Red : Color.Green;
+                        break;
+                    }
+                case 6:
+                    {
+                        te.v_Jun = ((blocked_status == "True") || (blocked_status == "TRUE")) ? Color.Red : Color.Green;
+                        break;
+                    }
+                case 7:
+                    {
+                        te.v_Jul = ((blocked_status == "True") || (blocked_status == "TRUE")) ? Color.Red : Color.Green;
+                        break;
+                    }
+                case 8:
+                    {
+                        te.v_Aug = ((blocked_status == "True") || (blocked_status == "TRUE")) ? Color.Red : Color.Green;
+                        break;
+                    }
+                case 9:
+                    {
+                        te.v_Sep = ((blocked_status == "True") || (blocked_status == "TRUE")) ? Color.Red : Color.Green;
+                        break;
+                    }
+                case 10:
+                    {
+                        te.v_Oct = ((blocked_status == "True") || (blocked_status == "TRUE")) ? Color.Red : Color.Green;
+                        break;
+                    }
+                case 11:
+                    {
+                        te.v_Nov = ((blocked_status == "True") || (blocked_status == "TRUE")) ? Color.Red : Color.Green;
+                        break;
+                    }
+                case 12:
+                    {
+                        te.v_Dec = ((blocked_status == "True") || (blocked_status == "TRUE")) ? Color.Red : Color.Green;
+                        break;
+                    }
+                default:
+                    break;
+            }
+
+            return te;
         }
         private void btn_start_Click(object sender, EventArgs e)
         {

@@ -11,7 +11,7 @@ namespace Navixy
         public string id { get; set; }
         public string device_id { get; set; }
         public string model { get; set; }
-        public string blocked { get; set; }
+        public bool blocked { get; set; }
         public string tariff_id { get; set; }
         public string phone { get; set; }
         public string status_listing_id { get; set; }
