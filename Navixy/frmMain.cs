@@ -10,7 +10,10 @@ using System.Windows.Forms;
 
 using RestSharp;
 using Newtonsoft.Json;
-using BrightIdeasSoftware;
+using XPTable;
+using XPTable.Models;
+
+
 
 namespace Navixy
 {
@@ -20,6 +23,12 @@ namespace Navixy
         response_data_form m_response;
         public string filePath = @"db.csv";
         public StringBuilder m_data;
+
+        private PropertyGrid rowStylePropertyGrid;
+        private PropertyGrid cellStylePropertyGrid;
+        private XPTable.Models.RowStyle rowStyle;
+        private CellStyle cellStyle;
+
         public frmMain()
         {
             InitializeComponent();
@@ -35,6 +44,9 @@ namespace Navixy
                 frm.ShowDialog();
                 m_hash = frm.m_hash;
             }
+
+            Initialize_Table();
+            
             //btn_start.BringToFront();
             //btn_start.Select();
             //this.WindowState = FormWindowState.Minimized;
@@ -48,6 +60,98 @@ namespace Navixy
             //MessageBox.Show(this.ToString());
             //this.BringToFront();
             //this.Select();
+
+        }
+        private void Initialize_Table()
+        {
+            this.table.BeginUpdate();
+
+            NumberColumn column0 = new NumberColumn("#", 50);
+            TextColumn column1 = new TextColumn("IMEI",160);
+            TextColumn column2 = new TextColumn("PHONE",160);
+            ColorColumn column3 = new ColorColumn("Jan", 23);
+            ColorColumn column4 = new ColorColumn("Feb", 23);
+            ColorColumn column5 = new ColorColumn("Mar", 23);
+            ColorColumn column6 = new ColorColumn("Apr", 23);
+            ColorColumn column7 = new ColorColumn("May", 23);
+            ColorColumn column8 = new ColorColumn("Jun", 23);
+            ColorColumn column9 = new ColorColumn("Jul", 23);
+            ColorColumn column10 = new ColorColumn("Aug", 23);
+            ColorColumn column11 = new ColorColumn("Sep", 23);
+            ColorColumn column12 = new ColorColumn("Oct", 23);
+            ColorColumn column13 = new ColorColumn("Nov", 23);
+            ColorColumn column14 = new ColorColumn("Dec", 23);
+            TextColumn column15 = new TextColumn("BLOCKED", 130);
+            CheckBoxColumn column16 = new CheckBoxColumn("SIM BLOCK", 130);
+
+            column0.Alignment = ColumnAlignment.Center;
+            column1.Alignment = ColumnAlignment.Center;
+            column2.Alignment = ColumnAlignment.Center;
+            column3.Alignment = ColumnAlignment.Center;
+            column4.Alignment = ColumnAlignment.Center;
+            column5.Alignment = ColumnAlignment.Center;
+            column6.Alignment = ColumnAlignment.Center;
+            column7.Alignment = ColumnAlignment.Center;
+            column8.Alignment = ColumnAlignment.Center;
+            column9.Alignment = ColumnAlignment.Center;
+            column10.Alignment = ColumnAlignment.Center;
+            column11.Alignment = ColumnAlignment.Center;
+            column12.Alignment = ColumnAlignment.Center;
+            column13.Alignment = ColumnAlignment.Center;
+            column14.Alignment = ColumnAlignment.Center;
+            column15.Alignment = ColumnAlignment.Center;
+            column16.Alignment = ColumnAlignment.Center;
+
+            column3.ShowColorName = false;
+            column3.ShowDropDownButton = false;
+            column3.Sortable = false;
+            column4.ShowColorName = false;
+            column4.ShowDropDownButton = false;
+            column4.Sortable = false;
+            column5.ShowColorName = false;
+            column5.ShowDropDownButton = false;
+            column5.Sortable = false;
+            column6.ShowColorName = false;
+            column6.ShowDropDownButton = false;
+            column6.Sortable = false;
+            column7.ShowColorName = false;
+            column7.ShowDropDownButton = false;
+            column7.Sortable = false;
+            column8.ShowColorName = false;
+            column8.ShowDropDownButton = false;
+            column8.Sortable = false;
+            column9.ShowColorName = false;
+            column9.ShowDropDownButton = false;
+            column9.Sortable = false;
+            column10.ShowColorName = false;
+            column10.ShowDropDownButton = false;
+            column10.Sortable = false;
+            column11.ShowColorName = false;
+            column11.ShowDropDownButton = false;
+            column11.Sortable = false;
+            column12.ShowColorName = false;
+            column12.ShowDropDownButton = false;
+            column12.Sortable = false;
+            column13.ShowColorName = false;
+            column13.ShowDropDownButton = false;
+            column13.Sortable = false;
+            column14.ShowColorName = false;
+            column14.ShowDropDownButton = false;
+            column14.Sortable = false;
+
+
+            this.columnModel.Columns.AddRange(new Column[] { column0, column1, column2, column3, column4, column5, column6, column7, column8, column9, column10, column11, column12, column13, column14 ,column15, column16});
+
+
+            //this.rowStyle = new XPTable.Models.RowStyle();
+            //this.rowStyle.BackColor = Color.FromArgb(192, Color.LightBlue);
+            //this.rowStyle.ForeColor = Color.Red;
+            //this.rowStyle.Font = new Font("Times New Roman", 9.25f, FontStyle.Italic);
+
+            this.table.EndUpdate();
+
+            //this.rowStylePropertyGrid.SelectedObject = this.rowStyle;
+            //this.cellStylePropertyGrid.SelectedObject = this.cellStyle;
 
         }
         private void Load_Data(string val_hash)
@@ -96,13 +200,6 @@ namespace Navixy
                 temp_stringArray1.AppendLine(line);
 
             DateTime cur_datetime = DateTime.Now;
-            //foreach (string line in sorted.ToArray())
-            //{
-            //    string[] temp_arr = line.Split(',').ToArray();
-            //    string temp_month_1 = cur_datetime.Year.ToString() + " " + cur_datetime.ToString("MMM");
-            //    string temp_month_2 = DateTime.Parse(temp_arr[2]).Year.ToString() + " " + DateTime.Parse(temp_arr[2]).ToString("MMM");
-
-            //}
             string single_line = "";
             for (int i = 0; i < m_response.list.Count; i++)
             {
@@ -113,7 +210,6 @@ namespace Navixy
             
             string seperater = "\r\n";
             string[] merged_str_array = temp_stringArray1.ToString().Split(seperater.ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToArray();
-            //MessageBox.Show(merged_str_array[0].Split(',')[0]);
 
             var sorted = merged_str_array.AsEnumerable().Select(line => new
             {
@@ -154,12 +250,18 @@ namespace Navixy
             string[] str_array = m_data.ToString().Split(seperater.ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToArray();
 
             MessageBox.Show(str_array.Length.ToString());
-            int i = 0;
+
+            //List<Row> table_data;
+
+            int i = 1;
             foreach (string line in str_array.AsEnumerable().Skip(1).ToArray())
             {
-                objectListView1.AddObject(new { aspect_IMEI = line.Split(',')[0], aspect_Phone = line.Split(',')[1], aspect_Feb = "", aspect_Mar = "", aspect_Apr = "", aspect_May = "", aspect_Jun = "", aspect_J = "", aspect_Jul = "", aspect_Aug = "", aspect_Sep = "", aspect_Oct = "", aspect_Nov = "", aspect_Dec = "", aspect_Blocked = line.Split(',')[3], aspect_SIM_Block = line.Split(',')[4] });
+                Row temp = new Row(new Cell[] { new Cell(i), new Cell(line.Split(',')[0]), new Cell(line.Split(',')[1]) , new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green), new Cell(Color.Red), new Cell(Color.Green) });
+                this.table.TableModel.Rows.Add(temp);
+                //table_data.Add(temp);
+                //objectListView1.AddObject(new { aspect_IMEI = line.Split(',')[0], aspect_Phone = line.Split(',')[1], aspect_Feb = "", aspect_Mar = "", aspect_Apr = "", aspect_May = "", aspect_Jun = "", aspect_J = "", aspect_Jul = "", aspect_Aug = "", aspect_Sep = "", aspect_Oct = "", aspect_Nov = "", aspect_Dec = "", aspect_Blocked = line.Split(',')[3], aspect_SIM_Block = line.Split(',')[4] });
 
-                //i++;
+                i++;
                 //if (i > 5)
                 //    break;
             }

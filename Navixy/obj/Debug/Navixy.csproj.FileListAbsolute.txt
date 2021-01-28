@@ -15,6 +15,5 @@ F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\bin\Debug\Navixy.pdb
 F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\bin\Debug\Newtonsoft.Json.dll
 F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\bin\Debug\Newtonsoft.Json.xml
 F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\obj\Debug\Navixy.frmLogin.resources
-F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\bin\Debug\ObjectListView.dll
-F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\bin\Debug\ObjectListView.xml
+F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\bin\Debug\XPTable.dll
 F:\Freelancer\Awarded\01_24\CSharp API\work\Navixy\Navixy\obj\Debug\Navixy.csprojResolveAssemblyReference.cache
