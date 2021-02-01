@@ -137,15 +137,8 @@ namespace Navixy
             column14.ShowDropDownButton = false;
             column14.Sortable = false;
 
-            column15.Sortable = false;
-            //column16.Alignment = ce;
-            
-
-
-
-
+            //column15.Sortable = false;
             this.columnModel.Columns.AddRange(new Column[] { column0, column1, column2, column3, column4, column5, column6, column7, column8, column9, column10, column11, column12, column13, column14 ,column15, column16});
-
 
             //this.rowStyle = new XPTable.Models.RowStyle();
             //this.rowStyle.BackColor = Color.FromArgb(192, Color.LightBlue);
@@ -181,16 +174,12 @@ namespace Navixy
                     //MessageBox.Show(val_response.list[1].source.model);
                     Save_Data();
                     Show_Data();
-
                 }
-
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
         private void Save_Data()
         {
@@ -258,18 +247,23 @@ namespace Navixy
             int data_list_index = -1;
             var data_list = new List<row_data>();
             var unique_list = new List<string>();
+            bool flag_is_blocked = false;
             foreach (string line in str_array.AsEnumerable().Skip(1).ToArray())
             {
                 string str_IMEI = line.Split(',')[0];
                 if(!unique_list.Contains(str_IMEI))
                 {
+                    flag_is_blocked = false;
                     row_data te = new row_data();
                     te.v_IMEI = line.Split(',')[0];
                     te.v_PHONE = line.Split(',')[1];
 
                     te = Set_Blocked_Color(te, DateTime.Parse(line.Split(',')[2]).Month, line.Split(',')[3]);
-                    if (line.Split(',')[3] == "TRUE")
+                    if ((line.Split(',')[3] == "True") || (line.Split(',')[3] == "TRUE"))
+                    {
                         te.v_BLOCKED = DateTime.Parse(line.Split(',')[2]).ToString("MMM yyyy");
+                        flag_is_blocked = true;
+                    }
                     te.v_SIM_BLOCK = false;
 
                     data_list_index++;
@@ -280,8 +274,9 @@ namespace Navixy
                 else
                 {
                     data_list[data_list_index] = Set_Blocked_Color(data_list[data_list_index], DateTime.Parse(line.Split(',')[2]).Month, line.Split(',')[3]);
-                    if ((line.Split(',')[3] == "True") || (line.Split(',')[3] == "TRUE"))
-                        data_list[data_list_index].v_BLOCKED = DateTime.Parse(line.Split(',')[2]).ToString("MMM yyyy");
+                    if(!flag_is_blocked)
+                        if ((line.Split(',')[3] == "True") || (line.Split(',')[3] == "TRUE"))
+                            data_list[data_list_index].v_BLOCKED = DateTime.Parse(line.Split(',')[2]).ToString("MMM yyyy");
                 }
             }
 
