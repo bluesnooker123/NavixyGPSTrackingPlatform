@@ -250,6 +250,8 @@ namespace Navixy
             bool flag_is_blocked = false;
             foreach (string line in str_array.AsEnumerable().Skip(1).ToArray())
             {
+                if (DateTime.Parse(line.Split(',')[2]).Year != DateTime.Now.Year)       //Only Get Current Year's data from .csv file
+                    continue;
                 string str_IMEI = line.Split(',')[0];
                 if(!unique_list.Contains(str_IMEI))
                 {
