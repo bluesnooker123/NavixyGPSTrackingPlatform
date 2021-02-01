@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            XPTable.Models.DataSourceColumnBinder dataSourceColumnBinder2 = new XPTable.Models.DataSourceColumnBinder();
-            XPTable.Renderers.DragDropRenderer dragDropRenderer2 = new XPTable.Renderers.DragDropRenderer();
+            XPTable.Models.DataSourceColumnBinder dataSourceColumnBinder1 = new XPTable.Models.DataSourceColumnBinder();
+            XPTable.Renderers.DragDropRenderer dragDropRenderer1 = new XPTable.Renderers.DragDropRenderer();
             this.btn_start = new MetroFramework.Controls.MetroButton();
             this.table = new XPTable.Models.Table();
             this.columnModel = new XPTable.Models.ColumnModel();
@@ -55,9 +55,9 @@
             this.table.BorderColor = System.Drawing.Color.Black;
             this.table.ColumnModel = this.columnModel;
             this.table.DataMember = null;
-            this.table.DataSourceColumnBinder = dataSourceColumnBinder2;
-            dragDropRenderer2.ForeColor = System.Drawing.Color.Red;
-            this.table.DragDropRenderer = dragDropRenderer2;
+            this.table.DataSourceColumnBinder = dataSourceColumnBinder1;
+            dragDropRenderer1.ForeColor = System.Drawing.Color.Red;
+            this.table.DragDropRenderer = dragDropRenderer1;
             this.table.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.table.FullRowSelect = true;
             this.table.GridLines = XPTable.Models.GridLines.Rows;
@@ -67,7 +67,7 @@
             this.table.Location = new System.Drawing.Point(15, 106);
             this.table.Name = "table";
             this.table.Size = new System.Drawing.Size(930, 600);
-            this.table.TabIndex = 1;
+            this.table.TabIndex = 2;
             this.table.TableModel = this.tableModel;
             this.table.Text = "table1";
             this.table.UnfocusedBorderColor = System.Drawing.Color.Black;
@@ -87,7 +87,7 @@
             this.btn_save_SIM.Location = new System.Drawing.Point(796, 63);
             this.btn_save_SIM.Name = "btn_save_SIM";
             this.btn_save_SIM.Size = new System.Drawing.Size(90, 25);
-            this.btn_save_SIM.TabIndex = 0;
+            this.btn_save_SIM.TabIndex = 1;
             this.btn_save_SIM.Text = "Save";
             this.btn_save_SIM.UseSelectable = true;
             this.btn_save_SIM.Click += new System.EventHandler(this.btn_save_SIM_Click);

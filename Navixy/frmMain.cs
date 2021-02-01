@@ -23,6 +23,7 @@ namespace Navixy
         public string filePath = @"DB\db.csv";
         public StringBuilder m_data;
         public List<row_data> m_data_list;
+        public Dictionary<string, string> m_dict_IMEI_SIM;
 
         //private PropertyGrid rowStylePropertyGrid;
         //private PropertyGrid cellStylePropertyGrid;
@@ -185,7 +186,7 @@ namespace Navixy
                 MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void Save_Data()
+        private void Save_Data()    //save data to .csv file
         {
             string[] org_lines = { };
             if (System.IO.File.Exists(filePath))
@@ -270,7 +271,8 @@ namespace Navixy
                         te.v_BLOCKED = DateTime.Parse(line.Split(',')[2]).ToString("MMM yyyy");
                         flag_is_blocked = true;
                     }
-                    te.v_SIM_BLOCK = false;
+
+                    te.v_SIM_BLOCK = (m_dict_IMEI_SIM.FirstOrDefault(x => x.Key == te.v_IMEI).Value == "True") ? true : false; 
 
                     data_list_index++;
                     data_list.Add(te);
@@ -291,12 +293,10 @@ namespace Navixy
             int i = 1;
             foreach (row_data row in data_list)
             {
-                Row temp = new Row(new Cell[] { new Cell(i++), new Cell(row.v_IMEI), new Cell(row.v_PHONE), new Cell(row.v_Jan), new Cell(row.v_Feb), new Cell(row.v_Mar), new Cell(row.v_Apr), new Cell(row.v_May), new Cell(row.v_Jun), new Cell(row.v_Jul), new Cell(row.v_Aug), new Cell(row.v_Sep), new Cell(row.v_Oct), new Cell(row.v_Nov), new Cell(row.v_Dec), new Cell(row.v_BLOCKED), new Cell(row.v_SIM_BLOCK, checkbox_cellstyle) });
+                Row temp = new Row(new Cell[] { new Cell(i++), new Cell(row.v_IMEI), new Cell(row.v_PHONE), new Cell(row.v_Jan), new Cell(row.v_Feb), new Cell(row.v_Mar), new Cell(row.v_Apr), new Cell(row.v_May), new Cell(row.v_Jun), new Cell(row.v_Jul), new Cell(row.v_Aug), new Cell(row.v_Sep), new Cell(row.v_Oct), new Cell(row.v_Nov), new Cell(row.v_Dec), new Cell(row.v_BLOCKED), new Cell("",row.v_SIM_BLOCK, checkbox_cellstyle) });
                 this.table.TableModel.Rows.Add(temp);
             }
-
             m_data_list = data_list;
-
         }
         private row_data Set_Blocked_Color(row_data org, int month, string blocked_status)
         {
@@ -394,8 +394,23 @@ namespace Navixy
             MessageBox.Show("Save to \"" + filePath + "\" successfully!", "success");
 
         }
+        void Read_SIM_Data()   //read SIM BLOCK checked status from .csv file and set it to dictionary value m_dict_IMEI_SIM
+        {
+            string filePath = @"DB\" + m_user + "_db_SIM.csv";
+            if (!System.IO.File.Exists(filePath))
+                return;
+            string[] org_lines = { };
+            org_lines = System.IO.File.ReadAllLines(filePath);
+
+            m_dict_IMEI_SIM = new Dictionary<string, string>();
+            for (int i = 0; i < org_lines.Length; i ++)
+            {
+                m_dict_IMEI_SIM.Add(org_lines[i].Split(',')[1], org_lines[i].Split(',')[2]);
+            }
+        }
         private void btn_start_Click(object sender, EventArgs e)
         {
+            Read_SIM_Data();
             Load_Data(m_hash);
         }
         private void btn_save_SIM_Click(object sender, EventArgs e)
