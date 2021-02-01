@@ -17,10 +17,12 @@ namespace Navixy
 {
     public partial class frmMain : MetroFramework.Forms.MetroForm
     {
+        public string m_user;
         public string m_hash;
         response_data_form m_response;
-        public string filePath = @"db.csv";
+        public string filePath = @"DB\db.csv";
         public StringBuilder m_data;
+        public List<row_data> m_data_list;
 
         //private PropertyGrid rowStylePropertyGrid;
         //private PropertyGrid cellStylePropertyGrid;
@@ -40,7 +42,9 @@ namespace Navixy
             {
                 this.Hide();
                 frm.ShowDialog();
+                m_user = frm.m_user;
                 m_hash = frm.m_hash;
+                filePath = @"DB\" + m_user + "_db.csv";
             }
 
             Initialize_Table();
@@ -291,7 +295,7 @@ namespace Navixy
                 this.table.TableModel.Rows.Add(temp);
             }
 
-
+            m_data_list = data_list;
 
         }
         private row_data Set_Blocked_Color(row_data org, int month, string blocked_status)
@@ -366,9 +370,37 @@ namespace Navixy
 
             return te;
         }
+        private void Save_SIM_Data()
+        {
+            if(m_data_list == null)
+            {
+                MessageBox.Show("Please read data first", "No data", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            string filePath = @"DB\" + m_user + "_db_SIM.csv";
+            StringBuilder result_str = new StringBuilder();
+            result_str.AppendLine("User Name,IMEI,SIM BLOCK,Modified Date");
+            
+            DateTime cur_datetime = DateTime.Now;
+            string single_line = "";
+
+            //MessageBox.Show(this.table.TableModel.Rows);
+            foreach (Row row in this.table.TableModel.Rows)
+            {
+                single_line = m_user + "," + row.Cells[1].Text + "," + row.Cells[16].Checked + "," + cur_datetime.ToString();
+                result_str.AppendLine(single_line);
+            }
+            System.IO.File.WriteAllText(filePath, result_str.ToString());
+            MessageBox.Show("Save to \"" + filePath + "\" successfully!", "success");
+
+        }
         private void btn_start_Click(object sender, EventArgs e)
         {
             Load_Data(m_hash);
+        }
+        private void btn_save_SIM_Click(object sender, EventArgs e)
+        {
+            Save_SIM_Data();
         }
         private void frmMain_Closing(object sender, FormClosingEventArgs e)
         {

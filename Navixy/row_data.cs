@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace Navixy
 {
-    class row_data
+    public class row_data
     {
         public string v_IMEI { get; set; }
         public string v_PHONE { get; set; }
