@@ -35,6 +35,7 @@
             this.columnModel = new XPTable.Models.ColumnModel();
             this.tableModel = new XPTable.Models.TableModel();
             this.btn_save_SIM = new MetroFramework.Controls.MetroButton();
+            this.btn_hide_show_SIM = new MetroFramework.Controls.MetroButton();
             ((System.ComponentModel.ISupportInitialize)(this.table)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,7 +68,7 @@
             this.table.Location = new System.Drawing.Point(15, 106);
             this.table.Name = "table";
             this.table.Size = new System.Drawing.Size(930, 600);
-            this.table.TabIndex = 2;
+            this.table.TabIndex = 3;
             this.table.TableModel = this.tableModel;
             this.table.Text = "table1";
             this.table.UnfocusedBorderColor = System.Drawing.Color.Black;
@@ -84,7 +85,7 @@
             // 
             this.btn_save_SIM.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btn_save_SIM.FontSize = MetroFramework.MetroButtonSize.Tall;
-            this.btn_save_SIM.Location = new System.Drawing.Point(796, 63);
+            this.btn_save_SIM.Location = new System.Drawing.Point(429, 63);
             this.btn_save_SIM.Name = "btn_save_SIM";
             this.btn_save_SIM.Size = new System.Drawing.Size(90, 25);
             this.btn_save_SIM.TabIndex = 1;
@@ -92,12 +93,25 @@
             this.btn_save_SIM.UseSelectable = true;
             this.btn_save_SIM.Click += new System.EventHandler(this.btn_save_SIM_Click);
             // 
+            // btn_hide_show_SIM
+            // 
+            this.btn_hide_show_SIM.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btn_hide_show_SIM.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btn_hide_show_SIM.Location = new System.Drawing.Point(793, 63);
+            this.btn_hide_show_SIM.Name = "btn_hide_show_SIM";
+            this.btn_hide_show_SIM.Size = new System.Drawing.Size(90, 25);
+            this.btn_hide_show_SIM.TabIndex = 2;
+            this.btn_hide_show_SIM.Text = "Hide";
+            this.btn_hide_show_SIM.UseSelectable = true;
+            this.btn_hide_show_SIM.Click += new System.EventHandler(this.btn_hide_show_SIM_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
             this.ClientSize = new System.Drawing.Size(960, 720);
+            this.Controls.Add(this.btn_hide_show_SIM);
             this.Controls.Add(this.table);
             this.Controls.Add(this.btn_save_SIM);
             this.Controls.Add(this.btn_start);
@@ -119,5 +133,6 @@
         private XPTable.Models.ColumnModel columnModel;
         private XPTable.Models.TableModel tableModel;
         private MetroFramework.Controls.MetroButton btn_save_SIM;
+        private MetroFramework.Controls.MetroButton btn_hide_show_SIM;
     }
 }

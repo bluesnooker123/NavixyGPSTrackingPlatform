@@ -24,6 +24,8 @@ namespace Navixy
         public StringBuilder m_data;
         public List<row_data> m_data_list;
         public Dictionary<string, string> m_dict_IMEI_SIM;
+        public bool flag_hide_show_SIM_status = false;  //true: hide  ,  false: show
+        public XPTable.Models.TableModel hiddenTableModel;
 
         //private PropertyGrid rowStylePropertyGrid;
         //private PropertyGrid cellStylePropertyGrid;
@@ -49,7 +51,8 @@ namespace Navixy
             }
 
             Initialize_Table();
-            
+            m_dict_IMEI_SIM = new Dictionary<string, string>();
+
             //btn_start.BringToFront();
             //btn_start.Select();
             //this.WindowState = FormWindowState.Minimized;
@@ -394,7 +397,7 @@ namespace Navixy
             MessageBox.Show("Save to \"" + filePath + "\" successfully!", "success");
 
         }
-        void Read_SIM_Data()   //read SIM BLOCK checked status from .csv file and set it to dictionary value m_dict_IMEI_SIM
+        void Read_SIM_Data()   //read SIM BLOCK checked status from .csv file and set it to dictionary value ( m_dict_IMEI_SIM )
         {
             string filePath = @"DB\" + m_user + "_db_SIM.csv";
             if (!System.IO.File.Exists(filePath))
@@ -402,7 +405,7 @@ namespace Navixy
             string[] org_lines = { };
             org_lines = System.IO.File.ReadAllLines(filePath);
 
-            m_dict_IMEI_SIM = new Dictionary<string, string>();
+            
             for (int i = 0; i < org_lines.Length; i ++)
             {
                 m_dict_IMEI_SIM.Add(org_lines[i].Split(',')[1], org_lines[i].Split(',')[2]);
@@ -428,5 +431,32 @@ namespace Navixy
             //    System.Windows.Forms.Application.Exit();
         }
 
+        private void btn_hide_show_SIM_Click(object sender, EventArgs e)
+        {
+            if(flag_hide_show_SIM_status)   //true: hide => current status is 'hide' status
+            {
+                foreach (Row row in this.table.TableModel.Rows)
+                    row.Enabled = true;
+                    //row.Height = 20;
+                flag_hide_show_SIM_status = false;  //set current status to "show" status
+                btn_hide_show_SIM.Text = "Hide";
+            }
+            else    //false: show => current status is 'show' status
+            {
+                foreach (Row row in this.table.TableModel.Rows)
+                {
+                    if (row.Cells[16].Checked == true)
+                    {
+                        //row.Height = 1;
+                        row.Enabled = false;
+                    }
+                        
+                }
+                flag_hide_show_SIM_status = true;  //set current status to "hide" status
+                btn_hide_show_SIM.Text = "Show";
+            }
+            this.table.Invalidate();
+
+        }
     }
 }
