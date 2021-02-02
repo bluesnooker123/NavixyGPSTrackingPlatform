@@ -180,6 +180,7 @@ namespace Navixy
                 {
                     m_response = JsonConvert.DeserializeObject<response_data_form>(response.Content);
                     //MessageBox.Show(val_response.list[1].source.model);
+                    this.table.TableModel.Rows.Clear();
                     Save_Data();
                     Show_Data();
                 }
@@ -413,6 +414,7 @@ namespace Navixy
         }
         private void btn_start_Click(object sender, EventArgs e)
         {
+            m_dict_IMEI_SIM.Clear();
             Read_SIM_Data();
             Load_Data(m_hash);
         }
@@ -439,7 +441,7 @@ namespace Navixy
                     row.Enabled = true;
                     //row.Height = 20;
                 flag_hide_show_SIM_status = false;  //set current status to "show" status
-                btn_hide_show_SIM.Text = "Hide";
+                btn_hide_show_SIM.Text = "Hide Blocked SIM";
             }
             else    //false: show => current status is 'show' status
             {
@@ -453,7 +455,7 @@ namespace Navixy
                         
                 }
                 flag_hide_show_SIM_status = true;  //set current status to "hide" status
-                btn_hide_show_SIM.Text = "Show";
+                btn_hide_show_SIM.Text = "Show Blocked SIM";
             }
             this.table.Invalidate();
 

@@ -85,11 +85,11 @@
             // 
             this.btn_save_SIM.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btn_save_SIM.FontSize = MetroFramework.MetroButtonSize.Tall;
-            this.btn_save_SIM.Location = new System.Drawing.Point(429, 63);
+            this.btn_save_SIM.Location = new System.Drawing.Point(370, 63);
             this.btn_save_SIM.Name = "btn_save_SIM";
-            this.btn_save_SIM.Size = new System.Drawing.Size(90, 25);
+            this.btn_save_SIM.Size = new System.Drawing.Size(147, 25);
             this.btn_save_SIM.TabIndex = 1;
-            this.btn_save_SIM.Text = "Save";
+            this.btn_save_SIM.Text = "Save SIM Status";
             this.btn_save_SIM.UseSelectable = true;
             this.btn_save_SIM.Click += new System.EventHandler(this.btn_save_SIM_Click);
             // 
@@ -97,11 +97,11 @@
             // 
             this.btn_hide_show_SIM.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btn_hide_show_SIM.FontSize = MetroFramework.MetroButtonSize.Tall;
-            this.btn_hide_show_SIM.Location = new System.Drawing.Point(793, 63);
+            this.btn_hide_show_SIM.Location = new System.Drawing.Point(732, 63);
             this.btn_hide_show_SIM.Name = "btn_hide_show_SIM";
-            this.btn_hide_show_SIM.Size = new System.Drawing.Size(90, 25);
+            this.btn_hide_show_SIM.Size = new System.Drawing.Size(150, 25);
             this.btn_hide_show_SIM.TabIndex = 2;
-            this.btn_hide_show_SIM.Text = "Hide";
+            this.btn_hide_show_SIM.Text = "Hide Blocked SIM";
             this.btn_hide_show_SIM.UseSelectable = true;
             this.btn_hide_show_SIM.Click += new System.EventHandler(this.btn_hide_show_SIM_Click);
             // 
