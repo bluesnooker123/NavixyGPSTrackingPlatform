@@ -206,7 +206,7 @@ namespace Navixy
             string single_line = "";
             for (int i = 0; i < m_response.list.Count; i++)
             {
-                single_line = m_response.list[i].source.device_id + "," + m_response.list[i].source.phone + "," + cur_datetime.ToString() + "," + m_response.list[i].source.blocked;
+                single_line = m_user + "," + m_response.list[i].source.device_id + "," + m_response.list[i].source.phone + "," + cur_datetime.ToString() + "," + m_response.list[i].source.blocked;
                 temp_stringArray1.AppendLine(single_line);
             }
 
@@ -216,8 +216,8 @@ namespace Navixy
 
             var sorted = merged_str_array.AsEnumerable().Select(line => new
             {
-                SortKey_IMEI = line.Split(',')[0],
-                SortKey_date = DateTime.Parse(line.Split(',')[2]),
+                SortKey_IMEI = line.Split(',')[1],
+                SortKey_date = DateTime.Parse(line.Split(',')[3]),
                 Line = line
             })
             .OrderBy(x => x.SortKey_IMEI)
@@ -235,11 +235,11 @@ namespace Navixy
         private StringBuilder Remove_Duplicated_Month(string[] lines)
         {
             StringBuilder result = new StringBuilder();
-            result.AppendLine("IMEI,Phone Number,Modified Date,Blocked");
+            result.AppendLine("User Name,IMEI,Phone Number,Modified Date,Blocked");
             for (int i = 0; i < lines.Length-1; i++)
             {
-                if (!((lines[i].Split(',')[0] == lines[i + 1].Split(',')[0]) &&
-                    (DateTime.Parse(lines[i].Split(',')[2]).Month == DateTime.Parse(lines[i + 1].Split(',')[2]).Month)))
+                if (!((lines[i].Split(',')[1] == lines[i + 1].Split(',')[1]) &&
+                    (DateTime.Parse(lines[i].Split(',')[3]).Month == DateTime.Parse(lines[i + 1].Split(',')[3]).Month)))
                 {
                     result.AppendLine(lines[i]);
                 }
@@ -260,20 +260,20 @@ namespace Navixy
             bool flag_is_blocked = false;
             foreach (string line in str_array.AsEnumerable().Skip(1).ToArray())
             {
-                if (DateTime.Parse(line.Split(',')[2]).Year != DateTime.Now.Year)       //Only Get Current Year's data from .csv file
+                if (DateTime.Parse(line.Split(',')[3]).Year != DateTime.Now.Year)       //Only Get Current Year's data from .csv file
                     continue;
-                string str_IMEI = line.Split(',')[0];
+                string str_IMEI = line.Split(',')[1];
                 if(!unique_list.Contains(str_IMEI))
                 {
                     flag_is_blocked = false;
                     row_data te = new row_data();
-                    te.v_IMEI = line.Split(',')[0];
-                    te.v_PHONE = line.Split(',')[1];
+                    te.v_IMEI = line.Split(',')[1];
+                    te.v_PHONE = line.Split(',')[2];
 
-                    te = Set_Blocked_Color(te, DateTime.Parse(line.Split(',')[2]).Month, line.Split(',')[3]);
-                    if ((line.Split(',')[3] == "True") || (line.Split(',')[3] == "TRUE"))
+                    te = Set_Blocked_Color(te, DateTime.Parse(line.Split(',')[3]).Month, line.Split(',')[4]);
+                    if ((line.Split(',')[4] == "True") || (line.Split(',')[4] == "TRUE"))
                     {
-                        te.v_BLOCKED = DateTime.Parse(line.Split(',')[2]).ToString("MMM yyyy");
+                        te.v_BLOCKED = DateTime.Parse(line.Split(',')[3]).ToString("MMM yyyy");
                         flag_is_blocked = true;
                     }
 
@@ -286,10 +286,10 @@ namespace Navixy
                 }
                 else
                 {
-                    data_list[data_list_index] = Set_Blocked_Color(data_list[data_list_index], DateTime.Parse(line.Split(',')[2]).Month, line.Split(',')[3]);
+                    data_list[data_list_index] = Set_Blocked_Color(data_list[data_list_index], DateTime.Parse(line.Split(',')[3]).Month, line.Split(',')[4]);
                     if(!flag_is_blocked)
-                        if ((line.Split(',')[3] == "True") || (line.Split(',')[3] == "TRUE"))
-                            data_list[data_list_index].v_BLOCKED = DateTime.Parse(line.Split(',')[2]).ToString("MMM yyyy");
+                        if ((line.Split(',')[4] == "True") || (line.Split(',')[4] == "TRUE"))
+                            data_list[data_list_index].v_BLOCKED = DateTime.Parse(line.Split(',')[3]).ToString("MMM yyyy");
                 }
             }
 
