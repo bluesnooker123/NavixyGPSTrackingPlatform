@@ -25,7 +25,7 @@ namespace Navixy
         public List<row_data> m_data_list;
         public Dictionary<string, string> m_dict_IMEI_SIM;
         public bool flag_hide_show_SIM_status = false;  //true: hide  ,  false: show
-        public XPTable.Models.TableModel hiddenTableModel;
+        public List<Row> m_hiddenRows;
 
         //private PropertyGrid rowStylePropertyGrid;
         //private PropertyGrid cellStylePropertyGrid;
@@ -52,6 +52,7 @@ namespace Navixy
 
             Initialize_Table();
             m_dict_IMEI_SIM = new Dictionary<string, string>();
+            m_hiddenRows = new List<Row>();
 
             //btn_start.BringToFront();
             //btn_start.Select();
@@ -437,28 +438,34 @@ namespace Navixy
         {
             if(flag_hide_show_SIM_status)   //true: hide => current status is 'hide' status
             {
-                foreach (Row row in this.table.TableModel.Rows)
-                    row.Enabled = true;
-                    //row.Height = 20;
+                foreach (Row row in m_hiddenRows)
+                {
+                    this.table.TableModel.Rows.Add(row);
+                }
+
                 flag_hide_show_SIM_status = false;  //set current status to "show" status
                 btn_hide_show_SIM.Text = "Hide Blocked SIM";
+                this.table.Sort(0,SortOrder.Ascending);
             }
             else    //false: show => current status is 'show' status
             {
+                if(m_hiddenRows.Count != 0)
+                    m_hiddenRows.Clear();
+                List < Row > temp_array = new List<Row>();
                 foreach (Row row in this.table.TableModel.Rows)
+                    temp_array.Add(row);
+                foreach (Row row in temp_array)
                 {
                     if (row.Cells[16].Checked == true)
                     {
-                        //row.Height = 1;
-                        row.Enabled = false;
+                        m_hiddenRows.Add(row);
+                        this.table.TableModel.Rows.Remove(row);
                     }
-                        
                 }
                 flag_hide_show_SIM_status = true;  //set current status to "hide" status
                 btn_hide_show_SIM.Text = "Show Blocked SIM";
             }
             this.table.Invalidate();
-
         }
     }
 }
