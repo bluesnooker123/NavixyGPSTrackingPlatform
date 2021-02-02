@@ -26,12 +26,6 @@ namespace Navixy
         public Dictionary<string, string> m_dict_IMEI_SIM;
         public bool flag_hide_show_SIM_status = false;  //true: hide  ,  false: show
         public List<Row> m_hiddenRows;
-
-        //private PropertyGrid rowStylePropertyGrid;
-        //private PropertyGrid cellStylePropertyGrid;
-        //private XPTable.Models.RowStyle rowStyle;
-        //private CellStyle cellStyle;
-
         public frmMain()
         {
             InitializeComponent();
@@ -49,25 +43,9 @@ namespace Navixy
                 m_hash = frm.m_hash;
                 filePath = @"DB\" + m_user + "_db.csv";
             }
-
             Initialize_Table();
             m_dict_IMEI_SIM = new Dictionary<string, string>();
             m_hiddenRows = new List<Row>();
-
-            //btn_start.BringToFront();
-            //btn_start.Select();
-            //this.WindowState = FormWindowState.Minimized;
-            //this.WindowState = FormWindowState.Normal;
-
-
-
-            //MessageBox.Show(this.OwnedForms[0].ToString());
-            //this.Activate();
-            //            this.Activate();
-            //MessageBox.Show(this.ToString());
-            //this.BringToFront();
-            //this.Select();
-
         }
         private void Initialize_Table()
         {
@@ -145,28 +123,17 @@ namespace Navixy
             column14.ShowColorName = false;
             column14.ShowDropDownButton = false;
             column14.Sortable = false;
-
-            //column15.Sortable = false;
             this.columnModel.Columns.AddRange(new Column[] { column0, column1, column2, column3, column4, column5, column6, column7, column8, column9, column10, column11, column12, column13, column14 ,column15, column16});
 
-            //this.rowStyle = new XPTable.Models.RowStyle();
-            //this.rowStyle.BackColor = Color.FromArgb(192, Color.LightBlue);
-            //this.rowStyle.ForeColor = Color.Red;
-            //this.rowStyle.Font = new Font("Times New Roman", 9.25f, FontStyle.Italic);
-
             this.table.EndUpdate();
-
-            //this.rowStylePropertyGrid.SelectedObject = this.rowStyle;
-            //this.cellStylePropertyGrid.SelectedObject = this.cellStyle;
-
         }
         private void Load_Data(string val_hash)
         {
             try
             {
-                string send_str = "https://api.eu.navixy.com/v2/tracker/list?hash=" + val_hash;
-                //var client = new RestClient("https://api.eu.navixy.com/v2/tracker/list?hash=9db6f021f1edbe63fa8775bdf7b230d7");
-                var client = new RestClient(send_str);
+//                string send_str = "https://api.eu.navixy.com/v2/tracker/list?hash=" + val_hash;
+                var client = new RestClient("https://api.eu.navixy.com/v2/tracker/list?hash=9db6f021f1edbe63fa8775bdf7b230d7");
+//                var client = new RestClient(send_str);
                 client.Timeout = -1;
                 var request = new RestRequest(Method.GET);
                 IRestResponse response = client.Execute(request);
@@ -210,7 +177,6 @@ namespace Navixy
                 temp_stringArray1.AppendLine(single_line);
             }
 
-            
             string seperater = "\r\n";
             string[] merged_str_array = temp_stringArray1.ToString().Split(seperater.ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToArray();
 
@@ -252,8 +218,6 @@ namespace Navixy
             string seperater = "\r\n";
             string[] str_array = m_data.ToString().Split(seperater.ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToArray();
 
-            //MessageBox.Show(str_array.Length.ToString());
-
             int data_list_index = -1;
             var data_list = new List<row_data>();
             var unique_list = new List<string>();
@@ -281,8 +245,7 @@ namespace Navixy
 
                     data_list_index++;
                     data_list.Add(te);
-                    unique_list.Add(str_IMEI);
-                    
+                    unique_list.Add(str_IMEI);   
                 }
                 else
                 {
@@ -292,7 +255,6 @@ namespace Navixy
                             data_list[data_list_index].v_BLOCKED = DateTime.Parse(line.Split(',')[3]).ToString("MMM yyyy");
                 }
             }
-
             CellStyle checkbox_cellstyle = new CellStyle();
             checkbox_cellstyle.Padding = new CellPadding(60, 0, 0, 0);
             int i = 1;
@@ -306,7 +268,6 @@ namespace Navixy
         private row_data Set_Blocked_Color(row_data org, int month, string blocked_status)
         {
             row_data te = org;
-
             switch (month)
             {
                 case 1:
@@ -372,7 +333,6 @@ namespace Navixy
                 default:
                     break;
             }
-
             return te;
         }
         private void Save_SIM_Data()
@@ -430,10 +390,7 @@ namespace Navixy
             {
                 e.Cancel = true;
             }
-            //if (this.m_hash == null)
-            //    System.Windows.Forms.Application.Exit();
         }
-
         private void btn_hide_show_SIM_Click(object sender, EventArgs e)
         {
             if(flag_hide_show_SIM_status)   //true: hide => current status is 'hide' status
