@@ -61,7 +61,7 @@
             this.login_password.MaxLength = 32767;
             this.login_password.Name = "login_password";
             this.login_password.PasswordChar = '*';
-            this.login_password.WaterMark = "Enter your password";
+            this.login_password.PromptText = "Enter your password";
             this.login_password.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.login_password.SelectedText = "";
             this.login_password.SelectionLength = 0;
@@ -96,7 +96,7 @@
             this.login_user.MaxLength = 32767;
             this.login_user.Name = "login_user";
             this.login_user.PasswordChar = '\0';
-            this.login_user.WaterMark = "Enter your user name";
+            this.login_user.PromptText = "Enter your user name";
             this.login_user.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.login_user.SelectedText = "";
             this.login_user.SelectionLength = 0;
@@ -145,6 +145,7 @@
             this.Controls.Add(this.login_password);
             this.Controls.Add(this.login_user);
             this.Controls.Add(this.pictureBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "frmLogin";
             this.Resizable = false;

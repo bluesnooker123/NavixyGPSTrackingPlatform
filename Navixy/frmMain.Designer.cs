@@ -30,6 +30,7 @@
         {
             XPTable.Models.DataSourceColumnBinder dataSourceColumnBinder1 = new XPTable.Models.DataSourceColumnBinder();
             XPTable.Renderers.DragDropRenderer dragDropRenderer1 = new XPTable.Renderers.DragDropRenderer();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.btn_start = new MetroFramework.Controls.MetroButton();
             this.table = new XPTable.Models.Table();
             this.columnModel = new XPTable.Models.ColumnModel();
@@ -115,6 +116,7 @@
             this.Controls.Add(this.table);
             this.Controls.Add(this.btn_save_SIM);
             this.Controls.Add(this.btn_start);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.Resizable = false;
