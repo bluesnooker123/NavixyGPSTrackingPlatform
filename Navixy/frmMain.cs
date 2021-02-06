@@ -131,9 +131,9 @@ namespace Navixy
         {
             try
             {
-//                string send_str = "https://api.eu.navixy.com/v2/tracker/list?hash=" + val_hash;
-                var client = new RestClient("https://api.eu.navixy.com/v2/tracker/list?hash=9db6f021f1edbe63fa8775bdf7b230d7");
-//                var client = new RestClient(send_str);
+                string send_str = "https://api.eu.navixy.com/v2/tracker/list?hash=" + val_hash;
+//                var client = new RestClient("https://api.eu.navixy.com/v2/tracker/list?hash=9db6f021f1edbe63fa8775bdf7b230d7");
+                var client = new RestClient(send_str);
                 client.Timeout = -1;
                 var request = new RestRequest(Method.GET);
                 IRestResponse response = client.Execute(request);
